@@ -5,6 +5,7 @@ class Report_model extends CI_Model
     public $name;
     public $age;
     public $photo;
+    public $user_id;
     public $lost_date;
     public $description;
     public function getAll($opt = [])
@@ -21,6 +22,7 @@ class Report_model extends CI_Model
         if (isset($data['name'])) $this->name = $data['name'];
         if (isset($data['age'])) $this->age = $data['age'];
         if (isset($data['photo']))  $this->photo  = $data['photo'];
+        if (isset($data['user_id'])) $this->user_id = $data['user_id'];
         if (isset($data['lost_date']))  $this->lost_date = $data['lost_date'];
         if (isset($data['description'])) $this->description = $data['description'];
         $this->created_at  = date('Y-m-d H:i:s');
@@ -32,5 +34,13 @@ class Report_model extends CI_Model
         $this->db->from('reports');
         $this->db->where('id', $id);
         return $this->db->get()->row_array();
+    }
+
+    public function delete($id)
+    {
+        $this->db->from('reports');
+        $this->db->where('id', $id);
+        $this->db->delete();
+        return $this->db->affected_rows() > 0;
     }
 }

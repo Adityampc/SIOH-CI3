@@ -12,6 +12,7 @@ function load_news_list() {
             data.forEach(element => {
                 list += `<li><a href="javascript:void(0)" title="${element.name} Umur ${element.age} Tahun" onclick="load_middle_content('/report/${element.id}')">${element.name} - ${element.age} Tahun</a></li>`;
             });
+            if (list.length < 1) list = '<div style="text-align:center;"><strong>Tidak Ada Laporan</strong></div>';
             news_list.innerHTML = list;
         })
 }
@@ -50,13 +51,32 @@ function create_report() {
     })
         .then(response => response.json())
         .then(result => {
-            alert(result.message)
             if (result.statusCode == 200) {
                 photo.value = '';
                 itext.forEach(element => {
                     element.value = '';
                 });
                 load_news_list()
+            }
+        })
+        .catch(error => {
+            alert("Ada masalah saat memproses data")
+        });
+}
+
+function hapus(el) {
+    if (!confirm(`Hapus data ini?`)) return;
+    fetch('/report/' + el.dataset.id, {
+        method: 'DELETE',
+    })
+        .then(response => response.json())
+        .then(result => {
+            if (result.statusCode == 200) {
+                el.parentElement.parentElement.remove();
+                if (document.querySelectorAll('.list-orang').length < 1) {
+                    load_middle_content();
+                    load_news_list();
+                }
             }
         })
         .catch(error => {

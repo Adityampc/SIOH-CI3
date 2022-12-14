@@ -14,20 +14,25 @@
 
         <div class="card my-5">
             <div class="card-header text-center">
-                <h1>Masuk</h1>
+                <h1>Daftar</h1>
             </div>
             <div class="card-body">
-                <form action="<?= base_url('login') ?>" method="post">
+                <form action="<?= base_url('register') ?>" method="post">
                     <?php if ($this->session->flashdata('error')) : ?>
                         <div class="alert alert-danger" role="alert">
                             <?= $this->session->flashdata('error') ?>
                         </div>
-                    <?php endif ?>
-                    <?php if ($this->session->flashdata('success')) : ?>
+                        <?php endif ?><?php if ($this->session->flashdata('success')) : ?>
                         <div class="alert alert-success" role="alert">
                             <?= $this->session->flashdata('success') ?>
                         </div>
                     <?php endif ?>
+                    <div class="form-group">
+                        <label for="username">Nama Lengkap:</label>
+                        <?php echo form_error('fullname', '<div class="text-danger" >', '</div>'); ?>
+                        <input required id="fullname" name="fullname" value="<?= set_value('fullname'); ?>" type="text" class="form-control" placeholder="Nama Lengkap">
+                    </div>
+                    <br>
                     <div class="form-group">
                         <label for="username">Username:</label>
                         <?php echo form_error('username', '<div class="text-danger" >', '</div>'); ?>
@@ -40,11 +45,11 @@
                         <input required id="password" name="password" value="<?= set_value('password'); ?>" type="password" class="form-control" placeholder="Password">
                     </div>
                     <br>
-                    <button class="btn btn-primary w-100">Masuk</button>
+                    <button class="btn btn-primary w-100">Daftar</button>
                     <br>
                     <br>
                     <div class="text-center">
-                        <a href="<?= base_url('register') ?>" title="Daftar">Daftar</a>
+                        <a href="<?= base_url('login') ?>" title="Masuk">Masuk</a>
                     </div>
                 </form>
             </div>

@@ -2,11 +2,10 @@
 
 class User_model extends CI_Model
 {
-    public $name;
-    public $age;
-    public $photo;
-    public $lost_date;
-    public $description;
+    public $id;
+    public $fullname;
+    public $username;
+    public $password;
     public function getAll($opt = [])
     {
         $this->db->from('reports');
@@ -18,19 +17,24 @@ class User_model extends CI_Model
 
     public function add($data = [])
     {
-        if (isset($data['name'])) $this->name = $data['name'];
-        if (isset($data['age'])) $this->age = $data['age'];
-        if (isset($data['photo']))  $this->photo  = $data['photo'];
-        if (isset($data['lost_date']))  $this->lost_date = $data['lost_date'];
-        if (isset($data['description'])) $this->description = $data['description'];
+        if (isset($data['fullname'])) $this->fullname = $data['fullname'];
+        if (isset($data['username'])) $this->username = $data['username'];
+        if (isset($data['password']))  $this->password  = $data['password'];
         $this->created_at  = date('Y-m-d H:i:s');
-        $this->db->insert('reports', $this);
+        $this->updated_at  = date('Y-m-d H:i:s');
+       return $this->db->insert('users', $this);
     }
 
     public function find($id)
     {
         $this->db->from('reports');
         $this->db->where('id', $id);
+        return $this->db->get()->row_array();
+    }
+    public function getByUsername($username = null)
+    {
+        $this->db->from('users');
+        $this->db->where('username', $username ?? $this->username);
         return $this->db->get()->row_array();
     }
 }

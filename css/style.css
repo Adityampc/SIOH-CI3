@@ -91,7 +91,12 @@ a:hover{
 }
 .middle .time{
     text-align: right;
-    margin: 10px auto;
+    margin: 10px 0px 10px auto;
+}
+.middle .delete{
+    text-align: left;
+    margin: 10px auto 10px 0px;
+    cursor: pointer;
 }
 .middle .ket{
     margin: 10px;

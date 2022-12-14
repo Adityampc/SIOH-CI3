@@ -3,7 +3,7 @@
     <form id="form-report">
         <pre>
     <label for="fr-foto">Foto Orang Hilang </label>
-    <input type="file" id="fr-foto" name="photo" placeholder="Masukan Foto" required><br>
+    <input type="file" accept="image/*" id="fr-foto" name="photo" placeholder="Masukan Foto" required><br>
     <label for="fr-name">Nama Orang Hilang </label>
     <input type="text" id="fr-name" class="itext" name="name" placeholder="Masukan Nama"><br>
     <label for="fr-umur">Umur Orang Hilang </label>

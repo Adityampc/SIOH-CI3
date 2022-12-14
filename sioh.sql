@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 30 Nov 2022 pada 14.50
+-- Waktu pembuatan: 14 Des 2022 pada 21.06
 -- Versi server: 10.6.7-MariaDB-2ubuntu1.1
 -- Versi PHP: 8.1.12
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `reports` (
   `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `name` varchar(128) NOT NULL,
   `age` tinyint(3) NOT NULL DEFAULT 1,
   `description` text NOT NULL,
@@ -36,6 +37,28 @@ CREATE TABLE `reports` (
   `photo` varchar(128) NOT NULL DEFAULT 'no-image.png',
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` char(128) NOT NULL,
+  `password` text NOT NULL,
+  `fullname` varchar(64) NOT NULL,
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `fullname`, `updated_at`, `created_at`) VALUES
+(2, 'adityampc', '$2y$10$Y3gHOFN712pKgw8HMnpII.JHQ5uINli6hrzY4IlOMzfXdwxqyjA8.', 'Aditya Maulana', '2022-12-14 11:35:00', '2022-12-14 11:35:00');
 
 --
 -- Indexes for dumped tables
@@ -45,6 +68,13 @@ CREATE TABLE `reports` (
 -- Indeks untuk tabel `reports`
 --
 ALTER TABLE `reports`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indeks untuk tabel `users`
+--
+ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -55,7 +85,23 @@ ALTER TABLE `reports`
 -- AUTO_INCREMENT untuk tabel `reports`
 --
 ALTER TABLE `reports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT untuk tabel `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `reports`
+--
+ALTER TABLE `reports`
+  ADD CONSTRAINT `reports_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
