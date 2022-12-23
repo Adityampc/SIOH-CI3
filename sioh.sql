@@ -54,13 +54,6 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `users`
---
-
-INSERT INTO `users` (`id`, `username`, `password`, `fullname`, `updated_at`, `created_at`) VALUES
-(2, 'adityampc', '$2y$10$Y3gHOFN712pKgw8HMnpII.JHQ5uINli6hrzY4IlOMzfXdwxqyjA8.', 'Aditya Maulana', '2022-12-14 11:35:00', '2022-12-14 11:35:00');
-
---
 -- Indexes for dumped tables
 --
 

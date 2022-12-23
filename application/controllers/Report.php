@@ -57,30 +57,30 @@ class Report extends CI_Controller
 	{
 		$data = $this->Report_model->find($id);
 		$this->load->view('report/detail', ['data' => $data]);
-	}
-	public function delete($id)
-	{
-		if (!loggedIn()) {
-			header('Content-Type: application/json; charset=utf-8', true, 403);
-			echo json_encode(['message' => "Tindakan tidak diizinkan"]);
-			return;
 		}
-		$data = $this->Report_model->find($id);
-		if (!$data) {
-			header('Content-Type: application/json; charset=utf-8', true, 404);
-			echo json_encode(['message' => "Data tidak ditemukan"]);
-			return;
+		public function delete($id)
+		{
+			if (!loggedIn()) {
+				header('Content-Type: application/json; charset=utf-8', true, 403);
+				echo json_encode(['message' => "Tindakan tidak diizinkan"]);
+				return;
+			}
+			$data = $this->Report_model->find($id);
+			if (!$data) {
+				header('Content-Type: application/json; charset=utf-8', true, 404);
+				echo json_encode(['message' => "Data tidak ditemukan"]);
+				return;
+			}
+			if ($data['user_id'] != $this->session->id) {
+				header('Content-Type: application/json; charset=utf-8', true, 403);
+				echo json_encode(['message' => "Tindakan tidak diizinkan"]);
+				return;
+			}
+			if (!$this->Report_model->delete($id)) {
+				header('Content-Type: application/json; charset=utf-8', true, 500);
+				echo json_encode(['message' => "Gagal menghapus data"]);
+				return;
+			}
+			echo json_encode(['message' => "Berhasil menghapus data",'statusCode'=>200]);
 		}
-		if ($data['user_id'] != $this->session->id) {
-			header('Content-Type: application/json; charset=utf-8', true, 403);
-			echo json_encode(['message' => "Tindakan tidak diizinkan"]);
-			return;
-		}
-		if (!$this->Report_model->delete($id)) {
-			header('Content-Type: application/json; charset=utf-8', true, 500);
-			echo json_encode(['message' => "Gagal menghapus data"]);
-			return;
-		}
-		echo json_encode(['message' => "Berhasil menghapus data",'statusCode'=>200]);
-	}
 }
