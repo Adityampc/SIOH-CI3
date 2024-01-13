@@ -8,15 +8,20 @@ class Auth extends CI_Controller
 	public function login()
 	{
 		// jika sudah login maka akan di redirect ke halaman utama
-		if (loggedIn()) return redirect('/');
+		if ($this->checkCredential()) return redirect('/');
 		// jika belum login maka akan diarahkan ke halaman login
 		$this->load->view('auth/login');
+	}
+	// fungsi untuk mengecek apakah sudah login atau belum
+	private function checkCredential()
+	{
+		return loggedIn();
 	}
 	// fungsi untuk melakukan login
 	public function attempt_login()
 	{
 		// jika sudah login maka akan di redirect ke halaman utama
-		if (loggedIn()) return redirect('/');
+		if ($this->checkCredential()) return redirect('/');
 		// load library form_validation
 		$this->load->library('form_validation');
 		// set rules untuk form login
@@ -58,7 +63,7 @@ class Auth extends CI_Controller
 	public function register()
 	{
 		// jika sudah login maka akan di redirect ke halaman utama
-		if (loggedIn()) return redirect('/');
+		if ($this->checkCredential()) return redirect('/');
 		// jika belum login maka akan diarahkan ke halaman register
 		$this->load->view('auth/register');
 	}
@@ -66,7 +71,7 @@ class Auth extends CI_Controller
 	public function attempt_register()
 	{
 		// jika sudah login maka akan di redirect ke halaman utama
-		if (loggedIn()) return redirect('/');
+		if ($this->checkCredential()) return redirect('/');
 		// load library form_validation
 		$this->load->library('form_validation');
 		// set rules untuk form register

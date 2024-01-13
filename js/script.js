@@ -1,7 +1,7 @@
 "use strict"
 
 load_news_list();
-load_middle_content();
+load_middle_content(base_url + "/all");
 
 function load_news_list() {
 	fetch(base_url + '/all?limit=5&type=json')
