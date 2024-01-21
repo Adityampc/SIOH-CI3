@@ -1,4 +1,5 @@
 <h3 align="center">Detail</h3>
+<!-- jika ada menampilkan data -->
 <?php if ($data) : ?>
     <div>
 
@@ -22,6 +23,7 @@
             <?= $data['description'] ?>
         </div>
     </div>
+    <!-- jika data tidak ada, maka hasilnya seperti ini -->
 <?php else : ?>
     <p>Orang Tidak Ditemukan</p>
 <?php endif ?>

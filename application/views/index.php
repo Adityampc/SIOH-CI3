@@ -20,9 +20,12 @@
 					<li> <label>Cari Disini</label> <input placeholder="Cari Orang" type="text" oninput="load_middle_content(<?= base_url() ?>'/all?query='+this.value)" id="query">&nbsp;</li>
 					<li><a href="javascript:void(0)" onclick="load_middle_content('<?= base_url('all') ?>')">Berita</a></li>
 					<li><a href="javascript:void(0)" onclick="load_middle_content('<?= base_url('report') ?>')">Buat Laporan</a></li>
+					<!-- Jika sudah login -->
 					<?php if (loggedIn()) : ?>
+						<!-- Tampilkan menu keluar akun -->
 						<li><a href="<?= base_url('logout') ?>">Keluar</a></li>
 					<?php else : ?>
+						<!-- Tampilkan menu masuk akun -->
 						<li><a href="<?= base_url('login') ?>">Masuk</a></li>
 					<?php endif ?>
 				</ul>

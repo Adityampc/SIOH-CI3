@@ -17,12 +17,18 @@
                 <h1>Daftar</h1>
             </div>
             <div class="card-body">
+				<!-- Form Login -->
                 <form action="<?= base_url('register') ?>" method="post">
+					<!-- Jika ada session error -->
                     <?php if ($this->session->flashdata('error')) : ?>
+						<!-- Tampilkan alert dari pesan error yg ada di session -->
                         <div class="alert alert-danger" role="alert">
                             <?= $this->session->flashdata('error') ?>
                         </div>
-                        <?php endif ?><?php if ($this->session->flashdata('success')) : ?>
+                        <?php endif ?>
+					<!-- Jika ada session success -->
+                    <?php if ($this->session->flashdata('success')) : ?>
+						<!-- Tampilkan alert dari pesan success yang ada di session -->
                         <div class="alert alert-success" role="alert">
                             <?= $this->session->flashdata('success') ?>
                         </div>

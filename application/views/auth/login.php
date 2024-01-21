@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!-- jika user sudah login, maka akan diarahkan ke halaman dashboard -->
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,16 +18,22 @@
 				<h1>Masuk</h1>
 			</div>
 			<div class="card-body">
+				<!-- Form Login -->
 				<form action="<?= base_url('login') ?>" method="post">
+					<!-- Jika ada session error -->
 					<?php if ($this->session->flashdata('error')) : ?>
+						<!-- Tampilkan alert dari pesan error yg ada di session -->
 						<div class="alert alert-danger" role="alert">
 							<?= $this->session->flashdata('error') ?>
 						</div>
 					<?php endif ?>
+					<!-- Jika ada session success -->
 					<?php if ($this->session->flashdata('success')) : ?>
+						<!-- Tampilkan alert dari pesan success yang ada di session -->
 						<div class="alert alert-success" role="alert">
 							<?= $this->session->flashdata('success') ?>
 						</div>
+					
 					<?php endif ?>
 					<div class="form-group">
 						<label for="username">Username:</label>
