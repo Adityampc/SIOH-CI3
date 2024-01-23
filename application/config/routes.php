@@ -53,6 +53,8 @@ $route['all']['GET'] = 'Report/all';
 $route['report']['GET'] = 'Report/create';
 $route['report/(:num)']['DELETE'] = 'Report/delete/$1';
 $route['report/(:num)']['GET'] = 'Report/detail/$1';
+$route['report/edit/(:num)']['GET'] = 'Report/edit/$1';
+$route['report/edit/(:num)']['POST'] = 'Report/process_edit/$1';
 $route['report']['POST'] = 'Report/add';
 
 $route['logout']['GET'] = 'Auth/logout';

@@ -63,6 +63,42 @@ function create_report() {
 			alert("Ada masalah saat memproses data")
 		});
 }
+function update_report(id) {
+	const formData = new FormData();
+	const photo = document.querySelector('input[type="file"]');
+	const itext = document.querySelectorAll('[class="itext"]');
+	let err = false;
+	itext.forEach(element => {
+		if (element.value.length == 0) {
+			err = true;
+		}
+		formData.append(element.name, element.value)
+	});
+	if (err) {
+		alert("Mohon Isi Semua Kolom");
+		return;
+	}
+	if (photo.files.length > 0) {
+		formData.append('photo', photo.files[0])
+	}
+	fetch(base_url + '/report/edit/' + id, {
+		method: 'POST',
+		body: formData
+	})
+		.then(response => response.json())
+		.then(result => {
+			if (result.statusCode == 200) {
+				photo.value = '';
+				itext.forEach(element => {
+					element.value = '';
+				});
+				load_news_list()
+			}
+		})
+		.catch(error => {
+			alert("Ada masalah saat memproses data")
+		});
+}
 
 function hapus(el) {
 	if (!confirm(`Hapus data ini?`)) return;

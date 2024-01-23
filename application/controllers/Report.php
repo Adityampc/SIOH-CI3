@@ -29,7 +29,7 @@ class Report extends CI_Controller
 		// load view report/all
 		$this->load->view('report/all', $data);
 	}
-	// fungsi untuk menampilkan data laporan berdasarkan id
+	// fungsi untuk menampilkan form create
 	public function create()
 	{
 		// jika belum login maka akan diarahkan ke halaman login
@@ -37,7 +37,7 @@ class Report extends CI_Controller
 		// load view report/create
 		$this->load->view('report/create');
 	}
-	// fungsi untuk menampilkan data laporan berdasarkan id
+	// fungsi untuk menambahkan data laporan
 	public function add()
 	{
 		// jika belum login maka akan diarahkan ke halaman login
@@ -84,15 +84,66 @@ class Report extends CI_Controller
 		// set rules untuk form create
 		echo json_encode(['statusCode' => 200, 'message' => 'Berhasil Membuat Laporan Orang Hilang']);
 	}
+	// fungsi untuk menambahkan data laporan
+	public function process_edit($id)
+	{
+		// jika belum login maka akan diarahkan ke halaman login
+		if (!loggedIn()) return redirect('/login');
+		// set header content-type
+		header('Content-Type: application/json');
+		// set rules untuk form create
+		$target_dir = "./images/user/";
+		// set rules untuk form create
+		if (!file_exists($target_dir)) {
+			// set rules untuk form create
+			mkdir($target_dir, 0777);
+		}
+		// set rules untuk form create
+		$config['upload_path']          = './images/user/';
+		// set rules untuk form create
+		$config['allowed_types']        = 'jpg|png';
+		// set rules untuk form create
+		$config['encrypt_name'] 		= true;
+		// set rules untuk form create
+		$this->load->library('upload', $config);
+		// set rules untuk form create
+		$RM = $this->Report_model;
+		if ($this->upload->do_upload('photo')) {
+			// set rules untuk form create
+			$RM->photo = $this->upload->data('file_name');
+		} else {
+			$data = $this->Report_model->find($id);
+			$RM->photo = $data['photo'];
+		}
+		// set rules untuk form create
+		// set rules untuk form create
+		$RM->age = $this->input->post('age');
+		// set rules untuk form create
+		$RM->name = $this->input->post('name');
+		// set rules untuk form create
+		$RM->user_id = $this->session->userdata('id');
+		// set rules untuk form create
+		$RM->lost_date = $this->input->post('lost_date');
+		// set rules untuk form create
+		$RM->description = $this->input->post('description');
+		// set rules untuk form create
+		$RM->edit($id);
+		// set rules untuk form create
+		echo json_encode(['statusCode' => 201, 'message' => 'Berhasil Mengubah Laporan Orang Hilang']);
+	}
 	// fungsi untuk menampilkan data laporan berdasarkan id
 	public function detail($id)
 	{
 		// load model Report_model
 		$data = $this->Report_model->find($id);
-		// jika data tidak ditemukan maka akan diarahkan ke halaman 404
 		$this->load->view('report/detail', ['data' => $data]);
 	}
-	// fungsi untuk menampilkan data laporan berdasarkan id
+	public function edit($id)
+	{
+		$data = $this->Report_model->find($id);
+		$this->load->view('report/edit', ['data' => $data]);
+	}
+	// fungsi untuk menghapus data laporan berdasarkan id
 	public function delete($id)
 	{
 		// jika belum login maka akan diarahkan ke halaman login

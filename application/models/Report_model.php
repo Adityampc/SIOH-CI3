@@ -19,7 +19,7 @@ class Report_model extends CI_Model
 	// fungsi untuk menampilkan semua data laporan
 	public function getAll($opt = [])
 	{
-		// ambil data query dari url
+		// ambil data dari table reports
 		$this->db->from('reports');
 		// ambil data name dari url jika ada dan lakukan like terhadap name
 		if (isset($opt['name'])) $this->db->like('name', $opt['name']);
@@ -50,6 +50,26 @@ class Report_model extends CI_Model
 		$this->created_at  = date('Y-m-d H:i:s');
 		// tambahkan data ke database
 		$this->db->insert('reports', $this);
+	}
+
+	public function edit($id, $data = [])
+	{
+		// ambil data name dari url jika ada dan lakukan like terhadap name
+		if (isset($data['name'])) $this->name = $data['name'];
+		// ambil data age dari url jika ada dan lakukan like terhadap age
+		if (isset($data['age'])) $this->age = $data['age'];
+		// ambil data photo dari url jika ada dan lakukan like terhadap photo
+		if (isset($data['photo']))  $this->photo  = $data['photo'];
+		// ambil data user_id dari url jika ada dan lakukan like terhadap user_id
+		if (isset($data['user_id'])) $this->user_id = $data['user_id'];
+		// ambil data lost_date dari url jika ada dan lakukan like terhadap lost_date
+		if (isset($data['lost_date']))  $this->lost_date = $data['lost_date'];
+		// ambil data description dari url jika ada dan lakukan like terhadap description
+		if (isset($data['description'])) $this->description = $data['description'];
+		// ambil data created_at dari url jika ada dan lakukan like terhadap created_at
+		$this->updated_at  = date('Y-m-d H:i:s');
+		// tambahkan data ke database
+		$this->db->update('reports', $this, ['id' => $id]);
 	}
 
 	// fungsi untuk menampilkan data laporan berdasarkan id

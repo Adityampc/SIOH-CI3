@@ -15,15 +15,15 @@ class User_model extends CI_Model
 	// fungsi untuk menampilkan semua data user
 	public function add($data = [])
 	{
-		// ambil data fullname dari url jika ada dan lakukan like terhadap fullname
+		// ambil data fullname dari url jika ada dan lakukan update terhadap property fullname
 		if (isset($data['fullname'])) $this->fullname = $data['fullname'];
-		// ambil data username dari url jika ada dan lakukan like terhadap username
+		// ambil data username dari url jika ada dan lakukan update terhadap property username
 		if (isset($data['username'])) $this->username = $data['username'];
-		// ambil data password dari url jika ada dan lakukan like terhadap password
+		// ambil data password dari url jika ada dan lakukan update terhadap property password
 		if (isset($data['password']))  $this->password  = $data['password'];
-		// ambil data created_at dari url jika ada dan lakukan like terhadap created_at
+		// set property created_at untuk menandakan kapan sebuah data dibuat
 		$this->created_at  = date('Y-m-d H:i:s');
-		// ambil data updated_at dari url jika ada dan lakukan like terhadap updated_at
+		// set property updated_at untuk menandakan kapan sebuah data terakhir diupdate
 		$this->updated_at  = date('Y-m-d H:i:s');
 		// tambahkan data ke database
 		return $this->db->insert('users', $this);
